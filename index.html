@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <h2>Enter Population Details</h2>
+    
+    <form id="populationForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="education">Education:</label>
+        <select id="education" name="education" required>
+            <option value="None">None</option>
+            <option value="High School">High School</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+        </select><br><br>
+
+        <label for="profession">Profession:</label>
+        <select id="profession" name="profession" required>
+            <option value="Unemployed">Unemployed</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Artist">Artist</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Population Records</h2>
+    <ul id="recordsList"></ul>
+
+    <script>
+        // Constructor function
+        function Person(name, gender, address, education, profession) {
+            this.name = name;
+            this.gender = gender;
+            this.address = address;
+            this.education = education;
+            this.profession = profession;
+        }
+
+        // Function to add record to localStorage and display it
+        function addRecord(person) {
+            let records = JSON.parse(localStorage.getItem('populationRecords')) || [];
+            records.push(person);
+            localStorage.setItem('populationRecords', JSON.stringify(records));
+            displayRecords();
+        }
+
+        // Function to display records from localStorage
+        function displayRecords() {
+            let records = JSON.parse(localStorage.getItem('populationRecords')) || [];
+            let recordsList = document.getElementById('recordsList');
+            recordsList.innerHTML = ''; // Clear the list
+
+            records.forEach(function(record) {
+                let li = document.createElement('li');
+                li.textContent = `${record.name} - ${record.gender} - ${record.address} - ${record.education} - ${record.profession}`;
+                recordsList.appendChild(li);
+            });
+        }
+
+        // Form submit event listener
+        document.getElementById('populationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let name = document.getElementById('name').value;
+            let gender = document.querySelector('input[name="gender"]:checked').value;
+            let address = document.getElementById('address').value;
+            let education = document.getElementById('education').value;
+            let profession = document.getElementById('profession').value;
+
+            let newPerson = new Person(name, gender, address, education, profession);
+            addRecord(newPerson);
+
+            // Clear the form
+            document.getElementById('populationForm').reset();
+        });
+
+        // Display records on page load
+        window.onload = displayRecords;
+    </script>
+    
+
+    <script>
+
+        // QUESTION #01
+        var itemsArray = [
+    {name: "juice", price: 50, quantity: 3},
+    {name: "cookie", price: 30, quantity: 9},
+    {name: "shirt", price: 880, quantity: 1},
+    {name: "pen", price: 100, quantity: 2}
+];
+
+var totalPriceOfAllItems = 0;
+
+itemsArray.forEach(function(item) {
+    var totalPriceOfItem = item.price * item.quantity;
+    console.log(item.name + ": Total Price = " + totalPriceOfItem);
+    totalPriceOfAllItems += totalPriceOfItem;
+});
+
+console.log("Total Price of All Items = " + totalPriceOfAllItems);
+// QUESTION #02
+
+// Create the object
+var user = {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    password: "password123",
+    age: 25,
+    gender: "Male",
+    city: "New York",
+    country: "USA"
+};
+
+// Check if 'age' and 'country' properties exist
+if ('age' in user) {
+    console.log("Age exists in the object.");
+} else {
+    console.log("Age does not exist in the object.");
+}
+
+if (user.hasOwnProperty('country')) {
+    console.log("Country exists in the object.");
+} else {
+    console.log("Country does not exist in the object.");
+}
+if ('firstName' in user) {
+    console.log("firstName exists in the object.");
+} else {
+    console.log("firstName does not exist in the object.");
+}
+
+if (user.hasOwnProperty('lastName')) {
+    console.log("lastName exists in the object.");
+} else {
+    console.log("lastName does not exist in the object.");
+}
+
+// QUESTION #03
+
+// Constructor function
+function Product(name, category, price, stock) {
+    this.name = name;
+    this.category = category;
+    this.price = price;
+    this.stock = stock;
+}
+
+var product1 = new Product("Laptop", "Electronics", 800, 10);
+var product2 = new Product("T-Shirt", "Apparel", 20, 50);
+var product3 = new Product("Smartphone", "Electronics", 600, 5);
+var product4 = new Product("Coffee Mug", "Home & Kitchen", 15, 100);
+
+console.log(product1);
+console.log(product2);
+console.log(product3);
+console.log(product4);
+
+    </script>
+</body>
+</html>
